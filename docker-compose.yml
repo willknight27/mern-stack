@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  api:
+    build: ./backend
+    container_name: mern_back_c
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./backend:/backend # relative path
+      - /backend/node_modules # crear volumen de la carpeta node_modules
