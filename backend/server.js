@@ -1,8 +1,15 @@
+require('dotenv').config()
 const express = require('express')
-const port = 4000
+const port = process.env.PORT
 
 // express app
-const app = express()
+const app = express();
+
+// Middleware global
+app.use((req, res, next)=>{
+    console.log(req.path, req.method);
+    next();
+})
 
 app.get('/', (req, res) => {
     res.json(
