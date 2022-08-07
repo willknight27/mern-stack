@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const mongoose = require('mongoose')
 const gameRoutes = require('./routes/games')
 const port = process.env.PORT
 
@@ -10,15 +11,25 @@ const app = express();
 app.use(express.json())
 
 // Middleware global
-app.use((req, res, next)=>{
+app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 })
 
 // Primary route
-app.use('/api/games',gameRoutes)
+app.use('/api/games', gameRoutes)
 
-// Port
-app.listen(port, () => {
-    console.log("Port-->", port);
-})
+// Connect to db
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+        console.log('Connected to database')
+        // If connection is ok, then listen request
+        // Port
+        app.listen(port, () => {
+            console.log("Port-->", port);
+        });
+    })
+    .catch(error => {
+        console.log(error);
+    })
+
