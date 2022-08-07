@@ -1,9 +1,13 @@
 require('dotenv').config()
 const express = require('express')
+const gameRoutes = require('./routes/games')
 const port = process.env.PORT
 
 // express app
 const app = express();
+
+// Middleware: access to the body of the request
+app.use(express.json())
 
 // Middleware global
 app.use((req, res, next)=>{
@@ -11,15 +15,10 @@ app.use((req, res, next)=>{
     next();
 })
 
-app.get('/', (req, res) => {
-    res.json(
-        {
-            Mensaje: "Hola desde docker con express."
-        }
-    )
-})
+// Primary route
+app.use('/api/games',gameRoutes)
 
 // Port
 app.listen(port, () => {
-    console.log("Puerto-->", port);
+    console.log("Port-->", port);
 })
