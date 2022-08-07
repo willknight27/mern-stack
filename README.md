@@ -9,6 +9,7 @@
 ### Dependencies
 * express
 * dotenv
+* mongoose
 
 ### Dev dependencies
 * nodemon
