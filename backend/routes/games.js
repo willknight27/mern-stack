@@ -3,42 +3,18 @@
 */
 
 const express = require('express');
-const Game = require('../models/gameModel')
+const { getAllGames, createGame, getGame } = require('../controllers/gameController');
 const router = express.Router();
 
 // GET all retro games
-router.get('/', (req, res) => {
-    res.json({
-        mensaje: 'Get all games'
-    })
-});
+router.get('/', getAllGames );
 
 // GET a single game
-router.get('/:id', (req, res) => {
-    res.json({
-        mensaje: `Game number: ${req.params.id}`
-    })
-});
+router.get('/:id', getGame );
 
 // POST a new game
 // add Async
-router.post('/', async (req, res) => {
-
-    const { title, publisher, plataform } = req.body
-
-    try {
-        const newGame = await Game.create({
-            title,
-            publisher,
-            plataform
-        })
-        res.status(200).json(newGame)
-
-    } catch (error) {
-        res.status(400).json({ error: error.message })
-    }
-
-});
+router.post('/', createGame );
 
 // DELETE a new game
 router.delete('/:id', (req, res) => {
