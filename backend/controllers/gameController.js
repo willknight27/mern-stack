@@ -18,12 +18,12 @@ const getGame = async (req, res) => {
 
     // check the id format
     if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({message: 'Invalid id',error: `No game with id: ${id}`})
+        return res.status(404).json({ message: 'Invalid id', error: `No game with id: ${id}` })
     }
     // Find a game by id
     const game = await Game.findById(id)
     if (!game) {
-        return res.status(404).json({ error: `No game with id: ${id}`})
+        return res.status(404).json({ error: `No game with id: ${id}` })
     }
     return res.status(200).json(game)
 }
@@ -46,11 +46,53 @@ const createGame = async (req, res) => {
 }
 
 // Update
+const updateGame = async (req, res) => {
+    // Get the ID
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ message: 'Invalid id', error: `No game with id: ${id}` })
+    }
+
+    const game = await Game.findByIdAndUpdate({_id:id},{
+        ...req.body // Spread operator = game object
+    })
+
+    // Check the game
+    if (!game) {
+        return res.status(400).json({ error: `No game with id: ${id}` })
+    }
+
+    res.status(200).json(game)
+}
+
 
 // Delete
+const deleteGame = async (req, res) => {
+    // Get the ID
+    const { id } = req.params
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ message: 'Invalid id', error: `No game with id: ${id}` })
+    }
+
+    // mongo db id = _id
+    const game = await Game.findByIdAndDelete({ _id: id });
+
+    if (!game) {
+        return res.status(400).json({ error: `No game with id: ${id}` })
+    }
+
+    res.status(200).json(game)
+
+
+
+}
 
 module.exports = {
     getAllGames,
     getGame,
-    createGame
+    createGame,
+    updateGame,
+    deleteGame,
 }

@@ -1,9 +1,8 @@
 /*
 * Express router 
 */
-
 const express = require('express');
-const { getAllGames, createGame, getGame } = require('../controllers/gameController');
+const { getAllGames, createGame, getGame, updateGame, deleteGame } = require('../controllers/gameController');
 const router = express.Router();
 
 // GET all retro games
@@ -16,19 +15,11 @@ router.get('/:id', getGame );
 // add Async
 router.post('/', createGame );
 
-// DELETE a new game
-router.delete('/:id', (req, res) => {
-    res.json({
-        mensaje: `Delete a game with id: ${req.params.id}`
-    })
-});
-
 // UPDATE a game
-router.patch('/:id', (req, res) => {
-    res.json({
-        mensaje: `Update a game with id: ${req.params.id}`
-    })
-});
+router.patch('/:id', updateGame);
+
+// DELETE a new game
+router.delete('/:id', deleteGame);
 
 
 module.exports = router
