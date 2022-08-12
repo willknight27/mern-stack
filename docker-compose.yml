@@ -8,3 +8,12 @@ services:
     volumes:
       - ./backend:/backend # relative path
       - /backend/node_modules # crear volumen de la carpeta node_modules
+  web:
+    build: ./frontend
+    container_name: mern_front_c
+    ports:
+      - '5173:5173'
+    volumes:
+      - ./frontend:/frontend
+      - /frontend/node_modules
+  

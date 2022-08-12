@@ -2,7 +2,7 @@
 
 * M: Mongodb - Database
 * E: Express - Backend
-* R: React - Frontend
+* R: React + Vite - Frontend
 * N: Node.js - Backend
 
 ## Backend
