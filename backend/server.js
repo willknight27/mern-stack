@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const cors = require('cors')
 const mongoose = require('mongoose')
 const gameRoutes = require('./routes/games')
 const port = process.env.PORT
@@ -8,6 +9,7 @@ const port = process.env.PORT
 const app = express();
 
 // Middleware: access to the body of the request
+app.use(cors())
 app.use(express.json())
 
 // Middleware global
