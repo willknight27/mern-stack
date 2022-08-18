@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
+import { useGamesContext } from "../hooks/useGamesContext";
 import axios from 'axios';
 // components
 import GameDetails from "../components/GameDetails"
 import GameForm from "../components/GameForm";
 
 const Home = () => {
-    const [games, setGames] = useState(null)
+    
+    const { games, dispatch } = useGamesContext()
 
     useEffect(() => {
         
@@ -13,7 +15,7 @@ const Home = () => {
             .then(res =>{
                 const games = res.data
                 console.log(games);
-                setGames(games)
+                dispatch({type: 'SET_GAMES', payload: games})
             })
         
 
