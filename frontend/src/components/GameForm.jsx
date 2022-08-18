@@ -1,6 +1,10 @@
 import {useState} from 'react'
+import { useGamesContext } from "../hooks/useGamesContext";
+
 
 const GameForm = () => {
+
+    const { dispatch } = useGamesContext()
 
     const [title, setTitle] = useState('')
     const [publisher, setPublisher] = useState('')
@@ -36,6 +40,10 @@ const GameForm = () => {
             setPublisher('')
             setError(null)
             console.log('New game added',json);
+
+            // Update the games list
+            // payload: json = Add a game return the new game = json
+            dispatch({type: 'CREATE_GAME', payload: json})
         }
     }
 
