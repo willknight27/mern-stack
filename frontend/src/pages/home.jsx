@@ -23,12 +23,14 @@ const Home = () => {
 
     return (
         <div className="home">
+            
+            <GameForm/>
+
             <div className="games">
                 {games && games.map(game => (
                     <GameDetails game={game} key={game._id} />
                 ))}
             </div>
-            <GameForm/>
         </div>
 
 
