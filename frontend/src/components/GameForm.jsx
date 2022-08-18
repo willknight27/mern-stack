@@ -10,6 +10,7 @@ const GameForm = () => {
     const [publisher, setPublisher] = useState('')
     const [plataform, setPlataform] = useState('')
     const [error, setError] = useState(null)
+    const [emptyFields, setEmptyFields] = useState([])
 
 
 
@@ -33,12 +34,14 @@ const GameForm = () => {
 
         if (!res.ok) {
             setError(json.error)
+            setEmptyFields(json.emptyFields)
         }
         if (res.ok) {
             setTitle('')
             setPlataform('')
             setPublisher('')
             setError(null)
+            setEmptyFields([])
             console.log('New game added', json);
 
             // Update the games list
@@ -57,6 +60,7 @@ const GameForm = () => {
                     type="text"
                     onChange={(e) => setTitle(e.target.value)}
                     value={title}
+                    className={emptyFields.includes('title') ? 'error' : ''}
                 />
 
                 <label>Publisher:</label>
@@ -64,6 +68,8 @@ const GameForm = () => {
                     type="text"
                     onChange={(e) => setPublisher(e.target.value)}
                     value={publisher}
+                    className={emptyFields.includes('publisher') ? 'error' : ''}
+
                 />
 
                 <label>Platform:</label>
@@ -71,10 +77,12 @@ const GameForm = () => {
                     type="text"
                     onChange={(e) => setPlataform(e.target.value)}
                     value={plataform}
+                    className={emptyFields.includes('plataform') ? 'error' : ''}
+
                 />
 
                 <button>Add Game</button>
-                {error && <div className="error">Error</div>}
+                {error && <div className="error">{error}</div>}
             </form>
     )
 }

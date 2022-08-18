@@ -32,6 +32,23 @@ const getGame = async (req, res) => {
 const createGame = async (req, res) => {
     const { title, publisher, plataform } = req.body
 
+    // error msg
+    let emptyFields = []
+
+    if (!title) {
+        emptyFields.push('title')
+    }
+    if (!publisher) {
+        emptyFields.push('publisher')
+    }
+    if (!plataform) {
+        emptyFields.push('plataform')
+    }
+
+    if(emptyFields.length > 0){
+        return res.status(400).json({ error: 'Fill all fields!!',emptyFields })
+    }
+
     try {
         const newGame = await Game.create({
             title,
