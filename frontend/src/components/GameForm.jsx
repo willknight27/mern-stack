@@ -74,7 +74,7 @@ const GameForm = () => {
                 />
 
                 <button>Add Game</button>
-                {error && <div className="error">{error}</div>}
+                {error && <div className="error">Error</div>}
             </form>
     )
 }
