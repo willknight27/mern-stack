@@ -19,7 +19,7 @@ const Home = () => {
             })
         
 
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="home">

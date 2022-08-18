@@ -1,5 +1,8 @@
 import { useGamesContext } from "../hooks/useGamesContext"
 
+// date-fns
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 const GameDetails = ({ game }) => {
 
     const { dispatch } = useGamesContext()
@@ -21,8 +24,8 @@ const GameDetails = ({ game }) => {
         <h4>{game.title}</h4>
         <p><strong>Publisher: </strong>{game.publisher}</p>
         <p><strong>Platform: </strong>{game.plataform}</p>
-        <p>{game.createdAt}</p>
-        <span onClick={handleClick}><i class="fa-solid fa-trash-can"></i></span>
+        <p>{formatDistanceToNow(new Date(game.createdAt), {addSuffix: true})}</p>
+        <span onClick={handleClick}><i className="fa-solid fa-trash-can"></i></span>
       </div>
     )
   }
